@@ -21,7 +21,7 @@ export function getPost({ id,timeStamp,title,body,author,category,voteScore,dele
 }
 
 
-export function addPost({timeStamp,title,body,author,category}){
+export function addPost({id,timeStamp,title,body,author,category, voteScore,deleted}){
   return{
     type:ADD_POST,
     id,
@@ -35,7 +35,7 @@ export function addPost({timeStamp,title,body,author,category}){
   }
 }
 
-export function editPost({id,tite,body,category,voteScore}){
+export function editPost({id,title,body,category,voteScore,deleted}){
   return{
     type:EDIT_POST,
     id,
@@ -55,7 +55,7 @@ export function removePost({id}){
 }
 
 
-export function addComment({parentId,timeStamp,body,author,voteScore,parentIdDeleted}){
+export function addComment({id,parentId,timeStamp,body,author,voteScore,parentIdDeleted}){
   return {
     type:ADD_COMMENT,
     id,

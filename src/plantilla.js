@@ -18,17 +18,17 @@ class Plantilla extends Component{
               </li>
               <li className="nav-item px-2">
                   <a href="people.html" className="nav-link">
-                    <i className="fa fa-male"></i> React
+                    <i className="fa fa-rocket"></i> React
                   </a>
                 </li>
                 <li className="nav-item px-2">
                   <a href="plant.html" className="nav-link">
-                    <i className="fa fa-leaf"></i> Redux
+                    <i className="fa fa-ravelry"></i> Redux
                   </a>
                 </li>
                 <li className="nav-item px-2">
                   <a href="plant.html" className="nav-link">
-                    <i className="fa fa-leaf"></i> Udacity
+                    <i className="fa fa-university"></i> Udacity
                   </a>
 
               </li>
