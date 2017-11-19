@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 class pagBase extends Component {
   render(){
     return(
-      <div className="jumbotron col-md-5 m-2">
+      <div className="jumbotron col-md-10 m-2">
       <form>
           <div className="form-group">
             <label className="col-form-label">Title Post</label>

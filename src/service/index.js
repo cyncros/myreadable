@@ -32,10 +32,10 @@ function handleResponse(response) {
 //     Get all of the categories available for the app. List is found in categories.js.
 //     Feel free to extend this list as you desire.
 export function getCategories(){
-  fetch(`${serverURL}/categories`,getRequest)
+  return fetch(`${serverURL}/categories`,getRequest)
     .then(handleResponse)
-    .then(data => console.log(data))
-    .catch(error=> console.log(error))
+    .then(data => data)
+    .catch(error=> error)
     }
 
 // GET /posts
@@ -43,50 +43,51 @@ export function getCategories(){
 //       Get all of the posts. Useful for the main page
 //       when no category is selected.
 export function getAllPosts() {
-  fetch(`${serverURL}/posts`,getRequest)
+  return fetch(`${serverURL}/posts`,getRequest)
     .then(handleResponse)
-    .then(data=> console.log(data))
-    .catch(error=>console.log(error))
+    .then(data=>data)
+    .catch(error=>error)
 }
 
 // GET /:category/posts
 //       USAGE:
 //         Get all of the posts for a particular category
 export function getPostsByCat(category){
-  fetch(`${serverURL}/${category}/posts`, getRequest)
+  return fetch(`${serverURL}/${category}/posts`, getRequest)
     .then(handleResponse)
-    .then(data=> console.log(data))
-    .catch(error=> console.log(error))
+    .then(data=>data)
+    .catch(error=> error)
 }
 
 // GET /posts/:id
 //      USAGE:
 //        Get the details of a single post
-export function getPostDetailById(postId){
-  fetch (`${serverURL}/posts/${postId}`, getRequest)
-    .then (handleResponse)
-    .then (data=>console.log(data))
-    .then (error=>console.log(error))
+export function getPostDetailById(postId) {
+  return fetch(`${serverURL}/posts/${postId}`, getRequest)
+    .then(handleResponse)
+    .then(data => data)
+    .catch(error => error)
 }
+
 
 // GET /posts/:id/comments
 //   USAGE:
 //     Get all the comments for a single post
 export function getCommentsByPostID(postId){
-  fetch(`${serverURL}/posts/${postId}/comments`,getRequest)
+  return fetch(`${serverURL}/posts/${postId}/comments`,getRequest)
     .then(handleResponse)
     .then(data=>console.log(data))
-    .then(error=>console.log(error))
+    .catch(error=>console.log(error))
 }
 
 // GET /comments/:id
 //      USAGE:
 //        Get the details for a single comment
 export function getCommentDetailsById(commentId){
-  fetch(`${serverURL}/comments/${commentId}`,getRequest)
+  return fetch(`${serverURL}/comments/${commentId}`,getRequest)
     .then(handleResponse)
-    .then(data=>console.log(data))
-    .then(error=>console.log(error))
+    .then(data=>data)
+    .catch(error=>error)
 }
 
 // POST /posts
@@ -102,12 +103,12 @@ export function getCommentDetailsById(commentId){
 //         category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 
 export function addPost(post){
-  fetch(`${serverURL}/posts`,
+  return fetch(`${serverURL}/posts`,
         {...postRequest,
         ...{body: JSON.stringify(post)}})
         .then(handleResponse)
-        .then(data=>console.log("data", data))
-        .then(error=>console.log("error",error))
+        .then(data=>data)
+        .catch(error=>error)
       }
 
 //  POST /posts/:id
@@ -117,12 +118,12 @@ export function addPost(post){
 //      option - String: Either "upVote" or "downVote"
 
 export function updatePostScore({postId,option}){
-  fetch(`${serverURL}/posts/${postId}`,
+  return fetch(`${serverURL}/posts/${postId}`,
       {...postRequest,
        ...{body:JSON.stringify({option})}})
        .then(handleResponse)
        .then(data=>console.log(data))
-       .then(error=>console.log(error))
+       .catch(error=>console.log(error))
 }
 
         //  PUT /posts/:id
@@ -132,12 +133,12 @@ export function updatePostScore({postId,option}){
         //      title - String
         //      body - String
 export function editPostDetails({postId,title,body}){
-fetch(`${serverURL}/posts/${postId}`,
+return fetch(`${serverURL}/posts/${postId}`,
       {...putRequest,
       ...{body:JSON.stringify({title,body})}})
       .then(handleResponse)
       .then(data=>console.log(data))
-      .then(error=>console.log(error))
+      .catch(error=>console.log(error))
 }
  //
 //  DELETE /posts/:id
@@ -145,12 +146,12 @@ fetch(`${serverURL}/posts/${postId}`,
 //      Sets the deleted flag for a post to 'true'.
 //      Sets the parentDeleted flag for all child comments to 'true'.
 export function deletePost(postId){
-fetch(`${serverURL}/posts/${postId}`,
+return fetch(`${serverURL}/posts/${postId}`,
       {...delRequest,
       ...{body:JSON.stringify(postId)}})
       .then(handleResponse)
-      .then(data=>console.log(data))
-      .then(error=>console.log(error))
+      .then(data=>data)
+      .catch(error=>error)
 }
 
  //
@@ -165,12 +166,12 @@ fetch(`${serverURL}/posts/${postId}`,
 //      author: String
 //      parentId: Should match a post id in the database.
 export function addComment(commentInfo){
-  fetch(`${serverURL}/comments`,
+  return fetch(`${serverURL}/comments`,
       {...postRequest,
       ...{body:JSON.stringify(commentInfo)}})
       .then(handleResponse)
-      .then(data=>console.log(data))
-      .then(error=>console.log(error))
+      .then(data=>data)
+      .catch(error=>error)
 }
  //
 //  POST /comments/:id
@@ -178,12 +179,12 @@ export function addComment(commentInfo){
 //      Used for voting on a comment.
  //
 export function updateCommentScore({commentId,option}){
-  fetch(`${serverURL}/comments/${commentId}`,
+  return fetch(`${serverURL}/comments/${commentId}`,
         {...postRequest,
         ...{body:JSON.stringify({option})}})
         .then(handleResponse)
-        .then(data=>console.log(data))
-        .then(error=>console.log(error))
+        .then(data=>data)
+        .catch(error=>error)
 }
 //  PUT /comments/:id
 //    USAGE:
@@ -194,22 +195,22 @@ export function updateCommentScore({commentId,option}){
 //      body: String
  //
 export function editComments({commentId,timestamp,body}){
-  fetch(`${serverURL}/comments/${commentId}`,
+  return fetch(`${serverURL}/comments/${commentId}`,
         {...putRequest,
         ...{body:JSON.stringify({timestamp,body})}})
         .then(handleResponse)
-        .then(data=>console.log(data))
-        .then(error=>console.log(error))
+        .then(data=>data)
+        .catch(error=>error)
 
 }
         //  DELETE /comments/:id
         //    USAGE:
         //      Sets a comment's deleted flag to 'true'
 export function delComment(commentId){
-  fetch(`${serverURL}/comments/${commentId}`,
+  return fetch(`${serverURL}/comments/${commentId}`,
         {...delRequest,
         ...{body:JSON.stringify(commentId)}})
         .then(handleResponse)
-        .then(data=>console.log(data))
-        .then(error=>console.log(error))
+        .then(data=>data)
+        .catch(error=>error)
 }

@@ -1,15 +1,10 @@
-const initialState = {
-  posts: [],
-  postDetail: {},
-  comments: [],
-  categories: []
-};
+import { combineReducers } from 'redux'
+import posts from './Posts'
+import categories from './Categories'
+// import comments from './comments'
 
-function readable(state = initialState, action) {
-  switch (action.type) {
-    default:
-    
-      return state;
-  }
-}
-export default readable;
+export default combineReducers({
+  posts: posts,
+  categories: categories,
+
+})

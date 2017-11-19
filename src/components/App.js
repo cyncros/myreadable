@@ -16,7 +16,8 @@ class App extends Component {
         <Route path="/create" component={PostForm} />
         <Route path="/detail" component={PostDetail} />
         <Route path="/:category" component={PostList} />
-        <Route path="/" component={PostEdit} />
+        <Route path="/" component={PostList} />
+        <Route path="/edit" component={PostEdit} />
         </Switch>
       </Index>
     );
