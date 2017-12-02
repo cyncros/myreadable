@@ -117,13 +117,15 @@ export function addPost(post){
 //    PARAMS:
 //      option - String: Either "upVote" or "downVote"
 
-export function updatePostScore({postId,option}){
+export function updatePostScore(postId,option){
+
   return fetch(`${serverURL}/posts/${postId}`,
       {...postRequest,
-       ...{body:JSON.stringify({option})}})
+
+       ...{body:JSON.stringify({"option":option})}})
        .then(handleResponse)
-       .then(data=>console.log(data))
-       .catch(error=>console.log(error))
+       .then(data=>data)
+       .catch(error=>error)
 }
 
         //  PUT /posts/:id

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-
 function catName(name) {
   let ico;
   if (name === "react") {
@@ -16,13 +15,13 @@ function catName(name) {
 
 class CatMenu extends Component {
   render() {
-    let { name = "/", path = "/" } = this.props;
+    let { name = "/", path = "" } = this.props;
     return (
       <li className="nav-item px-2">
         <Link
           to={`/${path}`}
           // onClick={this.props.postByCategory(name)}
-          onClick={()=>this.props.postByCategory(name)}
+          onClick={() => this.props.postByCategory(name)}
           className="nav-link"
         >
           <i className={catName(name)} /> {name}

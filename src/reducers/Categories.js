@@ -15,7 +15,7 @@ function Cats(state = initialState, action) {
     case GET_ALL_CATS_SUCCESS:
       return {
         ...state,
-        ...action.data.categories,
+        elements :action.data.categories,
         loading: false
       };
     case GET_ALL_CATS_ERROR:

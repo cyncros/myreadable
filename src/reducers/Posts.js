@@ -1,7 +1,12 @@
 import omit from "lodash.omit";
 import mapkeys from "lodash.mapkeys";
 
+
 import {
+  ORDER_POST_BY,
+  VOTE_SCORE_POST,
+  VOTE_SCORE_POST_SUCCESS,
+  VOTE_SCORE_POST_ERROR,
   GET_All_POST,
   GET_All_POST_SUCCESS,
   GET_All_POST_ERROR,
@@ -20,17 +25,43 @@ const initialState = { loading: false };
 
 function Posts(state = initialState, action) {
   switch (action.type) {
-    // case GET_All_POST:
-    //   return {
-    //     ...state,
-    //     loading: true
-    //   };
+    case ORDER_POST_BY:
+      console.log(action.sortValue, "arrayOrdered REDUCER");
+      return {
+        ...state,
+        sortBy: action.sortValue
+      };
+    case VOTE_SCORE_POST:
+      return {
+        ...state,
+        loading: true
+      };
+    case VOTE_SCORE_POST_SUCCESS:
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [action.data.id]: action.data
+        },
+        loading: false
+      };
+    case VOTE_SCORE_POST_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
+    case GET_All_POST:
+      return {
+        ...state,
+        loading: true
+      };
     case GET_All_POST_SUCCESS:
       const newPosts = mapkeys(action.data, "id");
       return {
         ...state,
-        ...newPosts,
-        // loading: false
+        items: newPosts,
+        loading: false
       };
     case GET_All_POST_ERROR:
       return {
@@ -38,20 +69,18 @@ function Posts(state = initialState, action) {
         loading: false,
         error: action.error
       };
-    // case GET_All_POST_BY_CAT_ID:
-    //   return {
-    //     ...state,
-    //     loading: true
-    //   };
+    case GET_All_POST_BY_CAT_ID:
+      return {
+        ...state,
+        loading: true
+      };
     case GET_All_POST_BY_CAT_ID_SUCCESS:
       const postsById = mapkeys(action.data, "id");
-      // return {
-      //   ...state,
-      //   ...postsById,
-      //   loading: false
-      // };
-      // return Object.assign({}, state, postsById ,{loading:false})
-      return Object.assign({}, state, postsById )
+      return {
+        ...state,
+        items: postsById,
+        loading: false
+      };
     case GET_All_POST_BY_CAT_ID_ERROR:
       return {
         ...state,
@@ -67,7 +96,10 @@ function Posts(state = initialState, action) {
     case CREATE_POST_SUCCESS:
       return {
         ...state,
-        ...action.data,
+        items: {
+          ...state.items,
+          [action.data.id]: action.data
+        },
         loading: false
       };
     case CREATE_POST_ERROR:
@@ -82,10 +114,10 @@ function Posts(state = initialState, action) {
         loading: true
       };
     case DEL_POST_SUCCESS:
-      let deletePost = omit(state, action.data);
+      let deletePost = omit(state.items, action.data.id);
       return {
         ...state,
-        ...deletePost,
+        items: deletePost,
         loading: false
       };
     case DEL_POST_ERROR:
