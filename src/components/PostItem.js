@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { changeTimeFormat } from "../utils";
 
 class PostItem extends Component {
   render() {
-    let {
-      timeChange = "0",
+    const {
       id = "0",
       title = "no-title",
       author = "no-author",
@@ -13,7 +11,7 @@ class PostItem extends Component {
       body = "empty",
       voteScore = "0",
       category = "empty",
-      comments="0"
+      comments = "0"
     } = this.props;
 
     return (
@@ -42,30 +40,50 @@ class PostItem extends Component {
                 <i className="fa fa-chevron-circle-down fa-2x " />
               </button>
             </div>
-            <div className="col-sm-9">
+            <div className="col-sm-8">
               <p className="card-text">{body}</p>
               <h6 className="font-weight-bold">{category}</h6>
-              <button className="ml-1 text-light  alert-link alert-dark btn btn-secondary">
-                <Link to="/detail">Read More...</Link>
+              <button
+                className="ml-1  alert-link btn btn-secondary"
+                onClick={() =>
+                  this.props.singlePost({ postId: id,category, readMore: true })
+                }
+              >
+                Read More...
               </button>
             </div>
           </div>
         </div>
         <div className="card-footer  text-muted">
-          <p className="text-left font-weight-bold">By: {author}</p>
-          <p className="text-right font-weight-bold">{comments} comments</p>
-          <p className="text-right">
-            {`Submitted ${changeTimeFormat(timestamp)}`}
-            <button className="ml-1 btn btn-outline-warning fa fa-pencil ">
-              {" "}
-            </button>
-            <button
-              className="ml-1 btn btn-outline-danger  "
-              onClick={() => this.props.deleteSelectedPost(id)}
-            >
-              <i className=" fa fa-trash" />
-            </button>
-          </p>
+          <div className="pull-left">
+            <p>By: {author}</p>
+          </div>
+          <div className="pull-right">
+            <p className="text-right">
+              {comments} comments
+              <br />
+              {`Submitted ${changeTimeFormat(timestamp)}`}
+              <button
+                className="ml-1 btn btn-outline-warning fa fa-pencil "
+                onClick={() =>
+                  this.props.editPost({
+                    postId: id,
+                    body,
+                    title,
+                    author,
+                    category
+                  })
+                }
+              />
+              <button
+                className="ml-1 btn btn-outline-danger  "
+                onClick={() => this.props.deleteSelectedPost(id)}
+              >
+                <i className=" fa fa-trash" />
+              </button>
+              <br />
+            </p>
+          </div>
         </div>
       </div>
     );

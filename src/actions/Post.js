@@ -1,10 +1,10 @@
 import * as API from "../service/";
 
-//sORT vALUE
+//sORT vALUE (WORKS)
 export const ORDER_POST_BY = "readable/actions.Post/ORDER_POST_BY";
 
 export const sortPostsBy = sortValue => {
-  console.log(sortValue,"sortValue ACTION");
+
   return {
     type: ORDER_POST_BY,
     sortValue
@@ -13,7 +13,7 @@ export const sortPostsBy = sortValue => {
 
 //    PARAMS:
 //      option - String: Either "upVote" or "downVote"
-//updatePostScore({postId,option})
+//updatePostScore({postId,option})   (WORKS)
 
 export const VOTE_SCORE_POST = "readable/actions.Post/VOTE_SCORE_POST";
 export const VOTE_SCORE_POST_SUCCESS =
@@ -63,6 +63,7 @@ function acgetPostDetailByIdError(error) {
 
 export const getPostDetailById = postId => dispatch => {
   dispatch(acgetPostDetailById());
+  console.log(postId,"postIdbyID")
   return API.getPostDetailById(postId).then(
     data => dispatch(acgetPostDetailByIdSuccess(data)),
     error => {
@@ -100,7 +101,39 @@ export const getAllPosts = () => dispatch => {
     }
   );
 };
+//  PUT /posts/:id
+//    USAGE:
+//      Edit the details of an existing post
+//    PARAMS:
+//      title - String
+//      body - String
+// editPostDetails({postId,title,body}) (WORKS)
+export const EDIT_POST_DETAILS = "readable/actions.Post/EDIT_POST_DETAILS";
+export const EDIT_POST_DETAILS_SUCCESS =
+  "readable/actions.Post/EDIT_POST_DETAILS_SUCCESS";
+export const EDIT_POST_DETAILS_ERROR =
+  "readable/actions.Post/EDIT_POST_DETAILS_ERROR";
+function aceditPostDetails() {
+  return { type: EDIT_POST_DETAILS };
+}
+function aceditPostDetailsSuccess(data) {
+  return { type: EDIT_POST_DETAILS_SUCCESS, data };
+}
+function aceditPostDetailsError(error) {
+  return { type: EDIT_POST_DETAILS_ERROR, error };
+}
 
+export const editPostDetails = ({ postId, title, body }) => dispatch => {
+  dispatch(aceditPostDetails());
+
+  return API.editPostDetails({ postId,title, body }).then(
+    data => dispatch(aceditPostDetailsSuccess(data)),
+    error => {
+      dispatch(aceditPostDetailsError(error));
+      throw error;
+    }
+  );
+};
 //getallPostByCategoryID()   (WORKS)
 export const GET_All_POST_BY_CAT_ID =
   "readable/actions.Post/GET_All_POST_BY_CAT_ID";
@@ -132,7 +165,7 @@ export const getPostsByCat = category => dispatch => {
   );
 };
 
-//addPost(post)
+//addPost(post) (WORKS)
 //post its a obj that include the id,timestamp, title, author, body and category
 
 export const CREATE_POST = "readable/actions.Post/CREATE_POST";

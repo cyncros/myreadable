@@ -1,5 +1,4 @@
 import orderby from "lodash.orderby";
-import concat from "lodash.concat";
 
 //convert Obj from Redux to Array to be used in Reactjs
 export function objToArray(stateObj) {
@@ -30,25 +29,14 @@ export function changeTimeFormat(timestamp) {
   return new Date(timestamp);
 }
 
-export function createArrayToSubmit(
-  newId,
-  titlePost,
-  authorPost,
-  catPost,
-  msgPost,
-  time
-) {
-  let arraytToSubmit = [];
-  arraytToSubmit = concat(newId, titlePost, authorPost, catPost, msgPost, time);
-  console.log(arraytToSubmit, "arrayFinal");
-  return arraytToSubmit;
+export function createObjToSubmit(id, state, timestamp) {
+  let objToSubmit = { ...state, id, timestamp };
+  return objToSubmit;
 }
 
 //order the postsInfo by Id, timestamp and voteScore
 export function orderArrayBy(postsInfo, orderByInfo) {
   let arrayOrdered = [];
   arrayOrdered = orderby(postsInfo, [orderByInfo], ["desc"]);
-  // console.log(arrayOrdered, "arrayOrdered");
-  // console.log(orderByInfo, "orderByInfo");
   return arrayOrdered;
 }
