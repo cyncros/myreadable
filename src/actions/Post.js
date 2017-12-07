@@ -11,8 +11,8 @@ export const sortPostsBy = sortValue => {
   };
 };
 
-//    PARAMS:
-//      option - String: Either "upVote" or "downVote"
+//    PARAMS://      option - String: Either "upVote" or "downVote"
+
 //updatePostScore({postId,option})   (WORKS)
 
 export const VOTE_SCORE_POST = "readable/actions.Post/VOTE_SCORE_POST";
@@ -63,7 +63,7 @@ function acgetPostDetailByIdError(error) {
 
 export const getPostDetailById = postId => dispatch => {
   dispatch(acgetPostDetailById());
-  console.log(postId,"postIdbyID")
+
   return API.getPostDetailById(postId).then(
     data => dispatch(acgetPostDetailByIdSuccess(data)),
     error => {

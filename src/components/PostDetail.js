@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import CommentItem from "./CommentItem";
+import CommentsList from "./CommentsList";
 import {
   getPostDetailById,
   updatePostScore,
@@ -13,7 +13,6 @@ class PostDetail extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getPostDetailById(id);
-    // console.log(id, "iddidmount");
   }
   //-----Edit ----START
 
@@ -40,16 +39,15 @@ class PostDetail extends Component {
         body = "empty",
         voteScore = "0",
         category = "empty",
-        comments = "0"
+        commentCount = "0"
       } = {}
     } = this.props;
 
-    console.log(this.props, "postinfoxReturn");
     return (
       <div className="jumbotron col-md ">
         <div className="jumbotron">
           <div className="card border-success mb-3">
-            <div className="card-header">
+            <div className="card-header ">
               <h3>{title}</h3>
             </div>
             <div className="card-body">
@@ -85,11 +83,22 @@ class PostDetail extends Component {
               </div>
               <div className="pull-right">
                 <p className="text-right">
-                  {comments} comments
+                  {commentCount} comments
+                  <button
+                    type="button"
+                    className="btn btn-outline-success m-1"
+                    onClick={() =>
+                      this.props.history.push("/comment/create", {cat:category,parentalId:id,
+                        newComment: true
+                      })
+                    }
+                  >
+                    <i className="fa fa-commenting-o" aria-hidden="true">+Add Comment</i>
+                  </button>
                   <br />
                   {`Submitted ${changeTimeFormat(timestamp)}`}
                   <button
-                    className="ml-1 btn btn-outline-warning fa fa-pencil "
+                    className="m-1 btn btn-outline-warning fa fa-pencil "
                     onClick={() =>
                       this.editPostInfo({
                         postId: id,
@@ -101,7 +110,7 @@ class PostDetail extends Component {
                     }
                   />
                   <button
-                    className="ml-1 btn btn-outline-danger  "
+                    className="m-1 btn btn-outline-danger  "
                     onClick={() => this.props.deletePost(id)}
                   >
                     <i className=" fa fa-trash" />
@@ -111,15 +120,12 @@ class PostDetail extends Component {
               </div>
             </div>
           </div>
-          
-          <div className="jumbotron">
-          <CommentItem/>
 
+          <div className="jumbotron">
+            <CommentsList parentPost={this.props.match.params.id}
+            parentHistory={this.props.history} />
           </div>
         </div>
-
-
-
       </div>
     );
   }

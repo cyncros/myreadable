@@ -83,7 +83,7 @@ function Posts(state = initialState, action) {
         ...state,
         items: {
           ...state.items,
-          [action.data.id]:action.data
+          [action.data.id]: action.data
         },
         postDetail: {
           ...state.postDetail,
@@ -107,7 +107,6 @@ function Posts(state = initialState, action) {
       return {
         ...state,
         items: newPosts,
-
         loading: false
       };
     case GET_All_POST_ERROR:

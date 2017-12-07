@@ -11,7 +11,7 @@ class PostItem extends Component {
       body = "empty",
       voteScore = "0",
       category = "empty",
-      comments = "0"
+      commentCount = "0"
     } = this.props;
 
     return (
@@ -46,7 +46,11 @@ class PostItem extends Component {
               <button
                 className="ml-1  alert-link btn btn-secondary"
                 onClick={() =>
-                  this.props.singlePost({ postId: id,category, readMore: true })
+                  this.props.singlePost({
+                    postId: id,
+                    category,
+                    readMore: true
+                  })
                 }
               >
                 Read More...
@@ -60,11 +64,11 @@ class PostItem extends Component {
           </div>
           <div className="pull-right">
             <p className="text-right">
-              {comments} comments
+              {commentCount} comments
               <br />
               {`Submitted ${changeTimeFormat(timestamp)}`}
               <button
-                className="ml-1 btn btn-outline-warning fa fa-pencil "
+                className="m-1 btn btn-outline-warning fa fa-pencil "
                 onClick={() =>
                   this.props.editPost({
                     postId: id,
@@ -76,7 +80,7 @@ class PostItem extends Component {
                 }
               />
               <button
-                className="ml-1 btn btn-outline-danger  "
+                className="m-1 btn btn-outline-danger  "
                 onClick={() => this.props.deleteSelectedPost(id)}
               >
                 <i className=" fa fa-trash" />

@@ -74,8 +74,8 @@ export function getPostDetailById(postId) {
 export function getCommentsByPostID(postId) {
   return fetch(`${serverURL}/posts/${postId}/comments`, getRequest)
     .then(handleResponse)
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
+    .then(data => data)
+    .catch(error => error);
 }
 
 // GET /comments/:id
@@ -133,10 +133,10 @@ export function updatePostScore(postId, option) {
 //    PARAMS:
 //      title - String
 //      body - String
-export function editPostDetails( {postId, title, body} ) {
+export function editPostDetails({ postId, title, body }) {
   return fetch(`${serverURL}/posts/${postId}`, {
     ...putRequest,
-    ...{ body: JSON.stringify( {title, body} ) }
+    ...{ body: JSON.stringify({ title, body }) }
   })
     .then(handleResponse)
     .then(data => data)
@@ -182,7 +182,7 @@ export function addComment(commentInfo) {
 //    USAGE:
 //      Used for voting on a comment.
 //
-export function updateCommentScore({ commentId, option }) {
+export function updateCommentScore(commentId, option) {
   return fetch(`${serverURL}/comments/${commentId}`, {
     ...postRequest,
     ...{ body: JSON.stringify({ option }) }
@@ -199,8 +199,9 @@ export function updateCommentScore({ commentId, option }) {
 //      timestamp: timestamp. Get this however you want.
 //      body: String
 //
-export function editComments({ commentId, timestamp, body }) {
-  return fetch(`${serverURL}/comments/${commentId}`, {
+export function editComments({ id, timestamp, body }) {
+  console.log({ id, timestamp, body }, "varAPIS");
+  return fetch(`${serverURL}/comments/${id}`, {
     ...putRequest,
     ...{ body: JSON.stringify({ timestamp, body }) }
   })

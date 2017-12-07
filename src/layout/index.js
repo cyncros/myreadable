@@ -9,7 +9,7 @@ import CatMenu from "../components/CatMenu";
 
 class Layout extends Component {
   componentDidMount() {
-    this.props.dispatch(getCategories());
+    this.props.dispatch(getCategories());    
     // console.log(editComments({"commentId":3,"timestamp":1509428673907,"body":"Lorem"}))
     // console.log(addComment(commentInfo))
   }

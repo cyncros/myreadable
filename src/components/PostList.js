@@ -25,6 +25,7 @@ class PostList extends Component {
 
   delPostById = postId => {
     this.props.dispatch(deletePost(postId));
+    this.props.history.push('/')
   };
 
   changePostScore = (postId, option) => {
@@ -55,7 +56,7 @@ class PostList extends Component {
         <div className=" row">
           <div className="col-sm-8 ">
             {postsInfo.map(item => (
-              <PostItem 
+              <PostItem
                 key={item.id}
                 {...item}
                 deleteSelectedPost={this.delPostById}
