@@ -88,7 +88,7 @@ class PostDetail extends Component {
                     type="button"
                     className="btn btn-outline-success m-1"
                     onClick={() =>
-                      this.props.history.push("/comment/create", {cat:category,parentalId:id,
+                      this.props.history.push("/comment/create", {cat:category,parentId:id,
                         newComment: true
                       })
                     }

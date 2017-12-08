@@ -5,12 +5,12 @@ class CommentItem extends Component {
   render() {
     const {
       id = "0",
-      title = "no-title",
+
       author = "no-author",
       timestamp = "0",
       body = "empty",
       voteScore = "0",
-      parentId = "0"
+      
     } = this.props;
     return (
       <div>

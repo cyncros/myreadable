@@ -6,7 +6,7 @@ import { addComment, editComments } from "../actions/comments";
 
 class CommentCreate extends Component {
   componentDidMount() {
-    const comInfo = this.props.location.state;
+    const comInfo = this.props.history.location.state;
     const { newComment } = comInfo;
     newComment === true
       ? this.setState({
@@ -23,11 +23,7 @@ class CommentCreate extends Component {
   state = {
     id: "0",
     author: "",
-    body: "",
-    frmErrors: { author: "", body: "" },
-    authorValid: false,
-    bodyValid: false,
-    frmValid: false
+    body: ""
   };
   handleInputChange = event => {
     const target = event.target;
@@ -38,15 +34,15 @@ class CommentCreate extends Component {
     });
   };
 
-
   render() {
     let { id, body, author, newComment } = this.state;
     const comInfo2 = this.props.history.location.state;
-  const isEnable=author.length>0&&body.length>0
+    let cati = comInfo2.cati;
+    let parent = comInfo2.parentalId;
 
     return (
-      <div className="jumbotron col-md-10 m-2 container-fluid">
-        <div className="card text-white text-center bg-info mb-3 ">
+      <div className="jumbotron col-md-10 m-2">
+        <div className="card text-white text-center bg-info mb-3">
           <div className="card-header">
             <h4 className="card-title">New Comment</h4>
           </div>
@@ -57,13 +53,11 @@ class CommentCreate extends Component {
                 <input
                   name="author"
                   type="text"
-                  className="form-control "
+                  className="form-control"
                   value={this.state.author}
                   onChange={this.handleInputChange}
                   placeholder="Post Author"
                   disabled={!newComment}
-                  id="validationDefault01"
-                  required
                 />
               </div>
 
@@ -76,8 +70,6 @@ class CommentCreate extends Component {
                   onChange={this.handleInputChange}
                   rows="3"
                   placeholder="Message Post"
-                  id="validationDefault02"
-                  required="true"
                 />
               </div>
             </form>
@@ -85,8 +77,7 @@ class CommentCreate extends Component {
           <div className="card-footer text-muted">
             <button
               className="btn btn-success m-1"
-              disabled={!isEnable}
-              type="submit"
+              type="button"
               onClick={() => {
                 if (newComment) {
                   this.props.dispatch(
@@ -95,7 +86,7 @@ class CommentCreate extends Component {
                         uniqueID(),
                         {
                           author,
-                          parentId: comInfo2.parentId,
+                          parentId: parent,
                           body
                         },
                         timeToStamp()
@@ -108,8 +99,8 @@ class CommentCreate extends Component {
                     editComments({ id, body, timestamp: timeComment })
                   );
                 }
-                this.props.history.push(`/${comInfo2.cati}/${comInfo2.parentId}`);
-
+                this.props.history.push(`/${cati}`);
+                // this.props.history.push(`/`);
               }}
             >
               {this.state.btnSubmitText}
@@ -117,11 +108,11 @@ class CommentCreate extends Component {
 
             <button
               className="btn btn-dark m-1"
-              type="Reset"
+              type="button"
               value="Reset"
-              onClick={() => {
-                this.props.history.push(`/${comInfo2.cati}/${comInfo2.parentId}`);
-              }}
+              // onClick={() => {
+              //   this.props.history.push(`/${cati}/${parent}`);
+              // }}
             >
               Cancel
             </button>

@@ -26,20 +26,45 @@ const initialState = { loading: false };
 
 function Comments(state = initialState, action) {
   switch (action.type) {
+    case GET_COMMENT_BYID:
+      return {
+        ...state,
+        loading: true
+      };
+    case GET_COMMENT_BYID_SUCCESS:
+      return {
+        ...state,
+        items: action.data,
+        loading: false
+      };
+
+    case GET_COMMENT_BYID_ERROR:
+      return {
+        ...state,
+        ...action.error,
+        loading: false,
+        error: action.error
+      };
     case EDIT_COMMENT:
       return {
         ...state,
         loading: true
       };
     case EDIT_COMMENT_SUCCESS:
-      return {
-        ...state,
-        items: {
-          ...state.items,
-          [action.data.id]: action.data
-        },
-        loading: false
-      };
+      if (action.data === undefined) {
+        return {
+          ...state
+        };
+      } else {
+        return {
+          ...state,
+          items: {
+            ...state.items,
+            [action.data.id]: action.data
+          },
+          loading: false
+        };
+      }
 
     case EDIT_COMMENT_ERROR:
       return {

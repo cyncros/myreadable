@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { uniqueID, timeToStamp, createObjToSubmit } from "../utils";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-
 import { addPost, editPostDetails } from "../actions/Post";
 
 class pagBase extends Component {
@@ -14,15 +12,14 @@ class pagBase extends Component {
       this.setState({
         ...postData,
         btnSubmitText: "Save",
-        newPost:false
+        newPost: false
       });
     } else {
       this.setState({
         btnSubmitText: "Create",
-        newPost:true
+        newPost: true
       });
     }
-
   }
 
   state = {
@@ -41,9 +38,8 @@ class pagBase extends Component {
   };
 
   render() {
-
-    let {postId, body, author, title, category,newPost } = this.state;
-
+    let { postId, body, author, title, category, newPost } = this.state;
+    const isEnable = title.length > 0 && author.length > 0 && body.length > 0;
     return (
       <div className="jumbotron col-md-10 m-2">
         <form>
@@ -100,9 +96,8 @@ class pagBase extends Component {
           <button
             className="btn btn-success m-1"
             type="button"
+            disabled={!isEnable}
             onClick={() => {
-
-
               newPost === true
                 ? this.props.dispatch(
                     addPost(
@@ -126,18 +121,21 @@ class pagBase extends Component {
                       body
                     })
                   );
-              
-              this.props.history.push("/");
+              this.props.history.push(`/${category}/${postId}`);
             }}
           >
             {this.state.btnSubmitText}
           </button>
-
-          <Link to="/">
-            <button className="btn btn-dark m-1" type="reset" value="Reset">
-              Cancel
-            </button>
-          </Link>
+          <button
+            className="btn btn-dark m-1"
+            type="Reset"
+            value="Reset"
+            onClick={() => {
+              this.props.history.push(`/${category}/${postId}`);
+            }}
+          >
+            Cancel
+          </button>
         </form>
       </div>
     );

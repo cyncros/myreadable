@@ -45,7 +45,7 @@ class CommentsList extends Component {
         </div>
       );
     }
-    console.log(this.props, "propscommentadas");
+
     return (
       <div>
         {commentsDetail.map(item => (
