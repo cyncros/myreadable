@@ -51,6 +51,18 @@ class PostList extends Component {
   render() {
     const { postsInfo = [] } = this.props;
 
+    if (postsInfo.length === 0) {
+      return (
+        <div className="text-center">
+          <h1>
+            Theres no POST HERE.
+            <i className="fa fa-frown-o fa-2x" aria-hidden="true" />
+          </h1>
+          <br />
+          <h4>Be the 1st and add one. </h4>
+        </div>
+      );
+    }
     return (
       <div className="jumbotron">
         <div className=" row">

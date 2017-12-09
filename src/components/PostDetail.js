@@ -43,6 +43,20 @@ class PostDetail extends Component {
       } = {}
     } = this.props;
 
+    const { postDetail = [] } = this.props;
+    if (postDetail.length === 0) {
+      return (
+        <div className="text-center">
+          <h1>
+            Theres no POST HERE.
+            <i className="fa fa-frown-o fa-2x" aria-hidden="true" />
+          </h1>
+          <br />
+          <h4>Be the 1st and add one. </h4>
+        </div>
+      );
+    }
+
     return (
       <div className="jumbotron col-md ">
         <div className="jumbotron">

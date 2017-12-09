@@ -39,6 +39,8 @@ class pagBase extends Component {
 
   render() {
     let { postId, body, author, title, category, newPost } = this.state;
+    let catP = this.state.Category;
+
     const isEnable = title.length > 0 && author.length > 0 && body.length > 0;
     return (
       <div className="jumbotron col-md-10 m-2">
@@ -98,30 +100,33 @@ class pagBase extends Component {
             type="button"
             disabled={!isEnable}
             onClick={() => {
-              newPost === true
-                ? this.props.dispatch(
-                    addPost(
-                      createObjToSubmit(
-                        uniqueID(),
-                        {
-                          postId,
-                          title,
-                          author,
-                          category,
-                          body
-                        },
-                        timeToStamp()
-                      )
+              let postIDs = uniqueID();
+              if (newPost === true) {
+                this.props.dispatch(
+                  addPost(
+                    createObjToSubmit(
+                      postIDs,
+                      {
+                        title,
+                        author,
+                        category,
+                        body
+                      },
+                      timeToStamp()
                     )
                   )
-                : this.props.dispatch(
-                    editPostDetails({
-                      postId,
-                      title,
-                      body
-                    })
-                  );
-              this.props.history.push(`/${category}/${postId}`);
+                );
+                this.props.history.push(`/${category}/${postIDs}`);
+              } else {
+                this.props.dispatch(
+                  editPostDetails({
+                    postId,
+                    title,
+                    body
+                  })
+                );
+                this.props.history.push(`/${category}/${postId}`);
+              }
             }}
           >
             {this.state.btnSubmitText}
@@ -131,7 +136,7 @@ class pagBase extends Component {
             type="Reset"
             value="Reset"
             onClick={() => {
-              this.props.history.push(`/${category}/${postId}`);
+              this.props.history.push(`/${catP}/${postId}`);
             }}
           >
             Cancel

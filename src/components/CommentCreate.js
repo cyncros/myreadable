@@ -7,6 +7,7 @@ import { addComment, editComments } from "../actions/comments";
 class CommentCreate extends Component {
   componentDidMount() {
     const comInfo = this.props.location.state;
+console.log(comInfo);
     const { newComment } = comInfo;
     newComment === true
       ? this.setState({
@@ -38,11 +39,12 @@ class CommentCreate extends Component {
     });
   };
 
-
   render() {
     let { id, body, author, newComment } = this.state;
     const comInfo2 = this.props.history.location.state;
-  const isEnable=author.length>0&&body.length>0
+    const isEnable = author.length > 0 && body.length > 0;
+let cati =comInfo2.category
+let parent =comInfo2.parentId
 
     return (
       <div className="jumbotron col-md-10 m-2 container-fluid">
@@ -95,7 +97,7 @@ class CommentCreate extends Component {
                         uniqueID(),
                         {
                           author,
-                          parentId: comInfo2.parentId,
+                          parentId: parent,
                           body
                         },
                         timeToStamp()
@@ -108,8 +110,9 @@ class CommentCreate extends Component {
                     editComments({ id, body, timestamp: timeComment })
                   );
                 }
-                this.props.history.push(`/${comInfo2.cati}/${comInfo2.parentId}`);
-
+                this.props.history.push(
+                  `/${cati}/${parent}`
+                );
               }}
             >
               {this.state.btnSubmitText}
@@ -120,7 +123,9 @@ class CommentCreate extends Component {
               type="Reset"
               value="Reset"
               onClick={() => {
-                this.props.history.push(`/${comInfo2.cati}/${comInfo2.parentId}`);
+                this.props.history.push(
+                  `/${cati}/${parent}`
+                );
               }}
             >
               Cancel

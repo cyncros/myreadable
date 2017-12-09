@@ -21,7 +21,6 @@ class App extends Component {
           <Route path="/:category/:id" component={PostDetail} />
           <Route path="/:category" component={PostList} />
           <Route path="/posts/:id/comments" component={CommentsList} />
-
           <Route path="/" component={PostList} />
         </Switch>
       </Index>
