@@ -7,18 +7,20 @@ import { addComment, editComments } from "../actions/comments";
 class CommentCreate extends Component {
   componentDidMount() {
     const comInfo = this.props.location.state;
-console.log(comInfo);
+    console.log(comInfo);
     const { newComment } = comInfo;
-    newComment === true
-      ? this.setState({
-          btnSubmitText: "Create",
-          newComment: true
-        })
-      : this.setState({
-          ...comInfo,
-          btnSubmitText: "Save",
-          newComment: false
-        });
+    if (newComment === true) {
+      this.setState({
+        btnSubmitText: "Create",
+        newComment: true
+      });
+    } else {
+      this.setState({
+        ...comInfo,
+        btnSubmitText: "Save",
+        newComment: false
+      });
+    }
   }
 
   state = {
@@ -40,11 +42,11 @@ console.log(comInfo);
   };
 
   render() {
-    let { id, body, author, newComment } = this.state;
+    const { id, body, author, newComment } = this.state;
     const comInfo2 = this.props.history.location.state;
     const isEnable = author.length > 0 && body.length > 0;
-let cati =comInfo2.category
-let parent =comInfo2.parentId
+    const cati = comInfo2.category;
+    const parent = comInfo2.parentId;
 
     return (
       <div className="jumbotron col-md-10 m-2 container-fluid">
@@ -110,9 +112,7 @@ let parent =comInfo2.parentId
                     editComments({ id, body, timestamp: timeComment })
                   );
                 }
-                this.props.history.push(
-                  `/${cati}/${parent}`
-                );
+                this.props.history.push(`/${cati}/${parent}`);
               }}
             >
               {this.state.btnSubmitText}
@@ -123,9 +123,7 @@ let parent =comInfo2.parentId
               type="Reset"
               value="Reset"
               onClick={() => {
-                this.props.history.push(
-                  `/${cati}/${parent}`
-                );
+                this.props.history.push(`/${cati}/${parent}`);
               }}
             >
               Cancel

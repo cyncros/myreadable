@@ -44,15 +44,10 @@ class PostDetail extends Component {
     } = this.props;
 
     const { postDetail = [] } = this.props;
-    if (postDetail.length === 0) {
+    if (postDetail.error || postDetail.deleted) {
       return (
         <div className="text-center">
-          <h1>
-            Theres no POST HERE.
-            <i className="fa fa-frown-o fa-2x" aria-hidden="true" />
-          </h1>
-          <br />
-          <h4>Be the 1st and add one. </h4>
+          {this.props.history.push("/notFound")}
         </div>
       );
     }
@@ -102,12 +97,16 @@ class PostDetail extends Component {
                     type="button"
                     className="btn btn-outline-success m-1"
                     onClick={() =>
-                      this.props.history.push("/comment/create", {cat:category,parentId:id,
+                      this.props.history.push("/comment/create", {
+                        cat: category,
+                        parentId: id,
                         newComment: true
                       })
                     }
                   >
-                    <i className="fa fa-commenting-o" aria-hidden="true">+Add Comment</i>
+                    <i className="fa fa-commenting-o" aria-hidden="true">
+                      +Add Comment
+                    </i>
                   </button>
                   <br />
                   {`Submitted ${changeTimeFormat(timestamp)}`}
@@ -125,7 +124,10 @@ class PostDetail extends Component {
                   />
                   <button
                     className="m-1 btn btn-outline-danger  "
-                    onClick={() => this.props.deletePost(id)}
+                    onClick={() => {
+                      this.props.deletePost(id);
+                      this.props.history.push("/");
+                    }}
                   >
                     <i className=" fa fa-trash" />
                   </button>
@@ -136,8 +138,10 @@ class PostDetail extends Component {
           </div>
 
           <div className="jumbotron">
-            <CommentsList parentPost={this.props.match.params.id}
-            parentHistory={this.props.history} />
+            <CommentsList
+              parentPost={this.props.match.params.id}
+              parentHistory={this.props.history}
+            />
           </div>
         </div>
       </div>

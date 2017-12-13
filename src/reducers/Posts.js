@@ -25,7 +25,7 @@ import {
   DEL_POST_SUCCESS,
   DEL_POST_ERROR
 } from "../actions/Post";
-
+let  newData, newPosts, postsById
 const initialState = { loading: false };
 
 function Posts(state = initialState, action) {
@@ -78,7 +78,7 @@ function Posts(state = initialState, action) {
         loading: true
       };
     case VOTE_SCORE_POST_SUCCESS:
-      const newData = action.data.voteScore;
+      newData = action.data.voteScore;
       return {
         ...state,
         items: {
@@ -103,7 +103,7 @@ function Posts(state = initialState, action) {
         loading: true
       };
     case GET_All_POST_SUCCESS:
-      const newPosts = mapkeys(action.data, "id");
+      newPosts = mapkeys(action.data, "id");
       return {
         ...state,
         items: newPosts,
@@ -121,7 +121,7 @@ function Posts(state = initialState, action) {
         loading: true
       };
     case GET_All_POST_BY_CAT_ID_SUCCESS:
-      const postsById = mapkeys(action.data, "id");
+      postsById = mapkeys(action.data, "id");
       return {
         ...state,
         items: postsById,

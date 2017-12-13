@@ -4,14 +4,14 @@ import { changeTimeFormat } from "../utils";
 class PostItem extends Component {
   render() {
     const {
-      id = "0",
-      title = "no-title",
-      author = "no-author",
-      timestamp = "0",
-      body = "empty",
-      voteScore = "0",
-      category = "empty",
-      commentCount = "0"
+      id ="0",
+      title="no-title" ,
+      author="no-author" ,
+      timestamp="0" ,
+      body="empty",
+      voteScore ="0",
+      category ="empty",
+      commentCount ='0'
     } = this.props;
 
     return (

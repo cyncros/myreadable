@@ -4,13 +4,11 @@ import { changeTimeFormat } from "../utils";
 class CommentItem extends Component {
   render() {
     const {
-      id = "0",
-
-      author = "no-author",
-      timestamp = "0",
-      body = "empty",
-      voteScore = "0",
-      
+      id="0" ,
+      author="no-author" ,
+      timestamp="0" ,
+      body="empty" ,
+      voteScore="0" 
     } = this.props;
     return (
       <div>

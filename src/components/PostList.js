@@ -25,7 +25,7 @@ class PostList extends Component {
 
   delPostById = postId => {
     this.props.dispatch(deletePost(postId));
-    this.props.history.push('/')
+    this.props.history.push("/");
   };
 
   changePostScore = (postId, option) => {
@@ -76,7 +76,6 @@ class PostList extends Component {
                 editPost={this.editPostInfo}
                 singlePost={this.singlePostDetails}
               />
-              // return <PostItem id={id} title={title} author={author}/>
             ))}
           </div>
 
