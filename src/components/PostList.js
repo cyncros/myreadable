@@ -7,6 +7,7 @@ import {
   updatePostScore,
   sortPostsBy
 } from "../actions/Post";
+import NoPost from "./NoPost"
 import { withRouter } from "react-router-dom";
 
 import { objToArray, orderArrayBy } from "../utils";
@@ -45,26 +46,16 @@ class PostList extends Component {
 
   singlePostDetails = ({ postId, category, readMore }) => {
     this.props.history.push(`/${category}/${postId}`, { postId, readMore });
-    // this.props.dispatch(getPostDetailById(postId));
   };
 
   render() {
     const { postsInfo = [] } = this.props;
 
     if (postsInfo.length === 0) {
-      return (
-        <div className="text-center">
-          <h1>
-            Theres no POST HERE.
-            <i className="fa fa-frown-o fa-2x" aria-hidden="true" />
-          </h1>
-          <br />
-          <h4>Be the 1st and add one. </h4>
-        </div>
-      );
+      return <NoPost />;
     }
     return (
-      <div className="jumbotron">
+      <div className="jumbotron jumbotron-fluid">
         <div className=" row">
           <div className="col-sm-8 ">
             {postsInfo.map(item => (

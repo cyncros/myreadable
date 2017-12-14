@@ -2,23 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CommentItem from "./CommentItem";
 
-import {
-  getCommentsByPostID,
-  updateCommentScore,
-  delComment
-} from "../actions/comments";
+import * as actions from "../actions/comments";
+
 import { objToArray } from "../utils";
 
 class CommentsList extends Component {
   componentDidMount() {
     const parentId = this.props.parentPost;
-    this.props.dispatch(getCommentsByPostID(parentId));
+    this.props.getCommentsByPostID(parentId);
   }
   changeCommentScore = (commentId, option) => {
-    this.props.dispatch(updateCommentScore(commentId, option));
+    this.props.updateCommentScore(commentId, option);
   };
   delCommentbyID = commentId => {
-    this.props.dispatch(delComment(commentId));
+    this.props.delComment(commentId);
   };
 
   editComponnetByID = ({ id, body, author, newComment }) => {
@@ -26,13 +23,14 @@ class CommentsList extends Component {
       id,
       body,
       author,
-      newComment
+      newComment,
+      cat:this.props.categoryPost,
+      parentId:this.props.parentPost
     });
   };
 
   render() {
     let { commentsDetail = [] } = this.props;
-
     if (commentsDetail.length === 0) {
       return (
         <div className="text-center">
@@ -68,4 +66,4 @@ function mapStateToProps({ comments: { items } }, ownProps) {
     commentsDetail: cambio
   };
 }
-export default connect(mapStateToProps)(CommentsList);
+export default connect(mapStateToProps,actions)(CommentsList);

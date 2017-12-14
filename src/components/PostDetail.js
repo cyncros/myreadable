@@ -2,17 +2,22 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import CommentsList from "./CommentsList";
-import {
-  getPostDetailById,
-  updatePostScore,
-  deletePost
-} from "../actions/Post";
+import * as actions from "../actions/Post";
+
 import { changeTimeFormat } from "../utils";
 
 class PostDetail extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
-    this.props.getPostDetailById(id);
+    this.props.getPostDetailById(id).then(data => {
+      if (
+        Object.keys(data.data).length === 0 ||
+        data.data.error ||
+        data.data === undefined
+      ) {
+        return this.props.history.push("/notFound");
+      }
+    });
   }
   //-----Edit ----START
 
@@ -42,15 +47,6 @@ class PostDetail extends Component {
         commentCount = "0"
       } = {}
     } = this.props;
-
-    const { postDetail = [] } = this.props;
-    if (postDetail.error || postDetail.deleted) {
-      return (
-        <div className="text-center">
-          {this.props.history.push("/notFound")}
-        </div>
-      );
-    }
 
     return (
       <div className="jumbotron col-md ">
@@ -140,6 +136,7 @@ class PostDetail extends Component {
           <div className="jumbotron">
             <CommentsList
               parentPost={this.props.match.params.id}
+              categoryPost={this.props.match.params.category}
               parentHistory={this.props.history}
             />
           </div>
@@ -153,8 +150,4 @@ function mapStateToProps({ posts: { postDetail } }, ownProps) {
     postDetail: postDetail
   };
 }
-export default connect(mapStateToProps, {
-  updatePostScore,
-  getPostDetailById,
-  deletePost
-})(PostDetail);
+export default connect(mapStateToProps, actions)(PostDetail);

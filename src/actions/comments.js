@@ -138,12 +138,10 @@ function aceditCommentsError(error) {
 }
 
 export const editComments = ({ id, timestamp, body }) => dispatch => {
-  console.log({ id, timestamp, body }, "datafromaction");
   dispatch(aceditComments());
   return API.editComments({ id, timestamp, body }).then(
     data => {
       dispatch(aceditCommentsSuccess(data));
-      console.log(data, "dataactioncreator");
     },
     error => {
       dispatch(aceditCommentsError(error));

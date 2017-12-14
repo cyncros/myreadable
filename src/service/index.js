@@ -200,7 +200,6 @@ export function updateCommentScore(commentId, option) {
 //      body: String
 //
 export function editComments({ id, timestamp, body }) {
-  console.log({ id, timestamp, body }, "varAPIS");
   return fetch(`${serverURL}/comments/${id}`, {
     ...putRequest,
     ...{ body: JSON.stringify({ timestamp, body }) }

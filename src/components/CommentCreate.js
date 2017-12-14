@@ -7,7 +7,6 @@ import { addComment, editComments } from "../actions/comments";
 class CommentCreate extends Component {
   componentDidMount() {
     const comInfo = this.props.location.state;
-    console.log(comInfo);
     const { newComment } = comInfo;
     if (newComment === true) {
       this.setState({
@@ -45,89 +44,93 @@ class CommentCreate extends Component {
     const { id, body, author, newComment } = this.state;
     const comInfo2 = this.props.history.location.state;
     const isEnable = author.length > 0 && body.length > 0;
-    const cati = comInfo2.category;
+    const cati = comInfo2.cat;
     const parent = comInfo2.parentId;
 
     return (
-      <div className="jumbotron col-md-10 m-2 container-fluid">
-        <div className="card text-white text-center bg-info mb-3 ">
-          <div className="card-header">
-            <h4 className="card-title">New Comment</h4>
-          </div>
-          <div className="card-body">
-            <form>
-              <div className="form-group">
-                <label className="col-form-label">Author Post</label>
-                <input
-                  name="author"
-                  type="text"
-                  className="form-control "
-                  value={this.state.author}
-                  onChange={this.handleInputChange}
-                  placeholder="Post Author"
-                  disabled={!newComment}
-                  id="validationDefault01"
-                  required
-                />
+      <div className="jumbotron jumbotron-fluid">
+        <div className="row align-items-center justify-content-center">
+          <div className=" jumbotron col-md-10 offset-md-1 ">
+            <div className="card text-white text-center bg-info mb-3 ">
+              <div className="card-header">
+                <h4 className="card-title">New Comment</h4>
               </div>
+              <div className="card-body">
+                <form>
+                  <div className="form-group">
+                    <label className="col-form-label">Author Post</label>
+                    <input
+                      name="author"
+                      type="text"
+                      className="form-control "
+                      value={this.state.author}
+                      onChange={this.handleInputChange}
+                      placeholder="Post Author"
+                      disabled={!newComment}
+                      id="validationDefault01"
+                      required
+                    />
+                  </div>
 
-              <div className="form-group">
-                <label className="col-form-label">Message Post:</label>
-                <textarea
-                  className="form-control"
-                  name="body"
-                  value={this.state.body}
-                  onChange={this.handleInputChange}
-                  rows="3"
-                  placeholder="Message Post"
-                  id="validationDefault02"
-                  required="true"
-                />
+                  <div className="form-group">
+                    <label className="col-form-label">Message Post:</label>
+                    <textarea
+                      className="form-control"
+                      name="body"
+                      value={this.state.body}
+                      onChange={this.handleInputChange}
+                      rows="3"
+                      placeholder="Message Post"
+                      id="validationDefault02"
+                      required="true"
+                    />
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
-          <div className="card-footer text-muted">
-            <button
-              className="btn btn-success m-1"
-              disabled={!isEnable}
-              type="submit"
-              onClick={() => {
-                if (newComment) {
-                  this.props.dispatch(
-                    addComment(
-                      createObjToSubmit(
-                        uniqueID(),
-                        {
-                          author,
-                          parentId: parent,
-                          body
-                        },
-                        timeToStamp()
-                      )
-                    )
-                  );
-                } else {
-                  let timeComment = timeToStamp();
-                  this.props.dispatch(
-                    editComments({ id, body, timestamp: timeComment })
-                  );
-                }
-                this.props.history.push(`/${cati}/${parent}`);
-              }}
-            >
-              {this.state.btnSubmitText}
-            </button>
+              <div className="card-footer text-muted">
+                <button
+                  className="btn btn-success m-1"
+                  disabled={!isEnable}
+                  type="submit"
+                  onClick={() => {
+                    if (newComment) {
+                      this.props.dispatch(
+                        addComment(
+                          createObjToSubmit(
+                            uniqueID(),
+                            {
+                              author,
+                              parentId: parent,
+                              body
+                            },
+                            timeToStamp()
+                          )
+                        )
+                      );
+                    } else {
+                      let timeComment = timeToStamp();
+                      this.props.dispatch(
+                        editComments({ id, body, timestamp: timeComment })
+                      );
+                    }
+                    this.props.history.push(`/${cati}/${parent}`);
+                  }}
+                >
+                  {this.state.btnSubmitText}
+                </button>
 
-            <button
-              className="btn btn-dark m-1"
-              type="Reset"
-              value="Reset"
-              onClick={() => {
-                this.props.history.push(`/${cati}/${parent}`);
-              }}
-            >
-              Cancel
-            </button>
+                <button
+                  className="btn btn-dark m-1"
+                  type="Reset"
+                  value="Reset"
+                  onClick={() => {
+                    this.props.history.push(`/${cati}/${parent}`);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -39,109 +39,113 @@ class pagBase extends Component {
 
   render() {
     let { postId, body, author, title, category, newPost } = this.state;
-    let catP = this.state.Category;
+    let catP = this.state.category;
 
     const isEnable = title.length > 0 && author.length > 0 && body.length > 0;
     return (
-      <div className="jumbotron col-md-10 m-2">
-        <form>
-          <div className="form-group">
-            <label className="col-form-label">Title Post</label>
-            <input
-              name="title"
-              type="text"
-              className="form-control"
-              value={this.state.title}
-              onChange={this.handleInputChange}
-              placeholder="Post Title"
-            />
-          </div>
-          <div className="form-group">
-            <label className="col-form-label">Author Post</label>
-            <input
-              name="author"
-              type="text"
-              className="form-control"
-              value={this.state.author}
-              onChange={this.handleInputChange}
-              placeholder="Post Author"
-              disabled={!newPost}
-            />
-          </div>
+      <div className="jumbotron jumbotron-fluid text-center">
+        <div className="row align-items-center justify-content-center">
+          <div className="jumbotron col-md-6 m-2 text-center">
+            <form>
+              <div className="form-group">
+                <label className="col-form-label">Title Post</label>
+                <input
+                  name="title"
+                  type="text"
+                  className="form-control"
+                  value={this.state.title}
+                  onChange={this.handleInputChange}
+                  placeholder="Post Title"
+                />
+              </div>
+              <div className="form-group">
+                <label className="col-form-label">Author Post</label>
+                <input
+                  name="author"
+                  type="text"
+                  className="form-control"
+                  value={this.state.author}
+                  onChange={this.handleInputChange}
+                  placeholder="Post Author"
+                  disabled={!newPost}
+                />
+              </div>
 
-          <div className="form-group">
-            <label className="col-form-label">Category</label>
-            <select
-              name="category"
-              value={this.state.category}
-              onChange={this.handleInputChange}
-              className="form-control"
-              disabled={!newPost}
-            >
-              <option value="react">React</option>
-              <option value="redux">Redux</option>
-              <option value="udacity">Udacity</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label className="col-form-label">Message Post:</label>
-            <textarea
-              className="form-control"
-              name="body"
-              value={this.state.body}
-              onChange={this.handleInputChange}
-              rows="3"
-              placeholder="Message Post"
-            />
-          </div>
+              <div className="form-group">
+                <label className="col-form-label">Category</label>
+                <select
+                  name="category"
+                  value={this.state.category}
+                  onChange={this.handleInputChange}
+                  className="form-control"
+                  disabled={!newPost}
+                >
+                  <option value="react">React</option>
+                  <option value="redux">Redux</option>
+                  <option value="udacity">Udacity</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label className="col-form-label">Message Post:</label>
+                <textarea
+                  className="form-control"
+                  name="body"
+                  value={this.state.body}
+                  onChange={this.handleInputChange}
+                  rows="3"
+                  placeholder="Message Post"
+                />
+              </div>
 
-          <button
-            className="btn btn-success m-1"
-            type="button"
-            disabled={!isEnable}
-            onClick={() => {
-              let postIDs = uniqueID();
-              if (newPost === true) {
-                this.props.dispatch(
-                  addPost(
-                    createObjToSubmit(
-                      postIDs,
-                      {
+              <button
+                className="btn btn-success m-1"
+                type="button"
+                disabled={!isEnable}
+                onClick={() => {
+                  let postIDs = uniqueID();
+                  if (newPost === true) {
+                    this.props.dispatch(
+                      addPost(
+                        createObjToSubmit(
+                          postIDs,
+                          {
+                            title,
+                            author,
+                            category,
+                            body
+                          },
+                          timeToStamp()
+                        )
+                      )
+                    );
+                    this.props.history.push(`/${category}/${postIDs}`);
+                  } else {
+                    this.props.dispatch(
+                      editPostDetails({
+                        postId,
                         title,
-                        author,
-                        category,
                         body
-                      },
-                      timeToStamp()
-                    )
-                  )
-                );
-                this.props.history.push(`/${category}/${postIDs}`);
-              } else {
-                this.props.dispatch(
-                  editPostDetails({
-                    postId,
-                    title,
-                    body
-                  })
-                );
-                this.props.history.push(`/${category}/${postId}`);
-              }
-            }}
-          >
-            {this.state.btnSubmitText}
-          </button>
-          <button
-            className="btn btn-dark m-1"
-            type="Reset"
-            value="Reset"
-            onClick={() => {
-              this.props.history.push(`/${catP}/${postId}`);
-            }}
-          >
-            Cancel
-          </button>
-        </form>
+                      })
+                    );
+                    this.props.history.push(`/${category}/${postId}`);
+                  }
+                }}
+              >
+                {this.state.btnSubmitText}
+              </button>
+              <button
+                className="btn btn-dark m-1"
+                type="Reset"
+                value="Reset"
+                onClick={() => {
+                  this.props.history.push(`/${catP}/${postId}`);
+                }}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
