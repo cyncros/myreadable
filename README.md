@@ -31,10 +31,6 @@ Authors
 Moises Torres - * -  <a href="https://github.com/cyncros">Cyncros</a>
 
 
-License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details
-
 Acknowledgments
 
 ES6
